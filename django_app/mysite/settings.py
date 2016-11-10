@@ -22,6 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'h91$1wmu)5e6k%%r8t54hi@k(@-jlu(q19i37kiv@@p^ia7i6+'
 
+# Auth
+AUTH_USER_MODEL = 'member.MyUser'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'photo',
+    'member',
 ]
 
 MIDDLEWARE = [
