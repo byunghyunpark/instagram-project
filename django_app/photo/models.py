@@ -9,6 +9,7 @@ __all__ = [
     'PhotoLike',
 ]
 
+
 class Photo(models.Model):
     # 나중에 선언되는 참조값은 문자로 기입하면 오류나지 않는다
     image = models.ImageField(upload_to='photo', blank=True)
@@ -35,7 +36,6 @@ class Photo(models.Model):
             'content': self.content,
         }
         return ret
-
 
 
 class PhotoTag(models.Model):
