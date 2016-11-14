@@ -25,8 +25,6 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'h91$1wmu)5e6k%%r8t54hi@k(@-jlu(q19i37kiv@@p^ia7i6+'
 
 # Auth
-LOGIN_URL = 'auth:login'
-LOGIN_REDIRECT_URL = 'photo:photo_list'
 AUTH_USER_MODEL = 'member.MyUser'
 
 # SECURITY WARNING: don't run with debug turned on in production!

@@ -21,13 +21,6 @@ class Photo(models.Model):
         through='PhotoLike',
         related_name='photo_set_like_users'
     )
-    # class Meta:
-    #     ordering = ['-pk']
-    # def __str__(self):
-    #     return '%s (author: %s)' % (
-    #         self.content,
-    #
-    #     )
 
     def to_dict(self):
         ret = {
