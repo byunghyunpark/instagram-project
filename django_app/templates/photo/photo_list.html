@@ -8,13 +8,23 @@
     <title>Document</title>
 </head>
 <body>
+
+
+{% if user.is_authenticated %}
+    <p><a href="{% url 'auth:logout' %}">로그아웃</a></p>
+{% else %}
+    <p><a href="{% url 'auth:login' %}">로그인</a></p>
+{% endif %}
+
 <p><a href="{% url 'photo:photo_add' %}">사진추가</a></p>
 {% for photo in photos %}
     <img src="{{ photo.image.url }}" alt="" style="width: 400px">
     <p>author: {{ photo.author }}</p>
     <p>content: {{ photo.content }}</p>
     <p>created_date: {{ photo.created_date }}</p>
-    <div class="pagination">
+{% endfor %}
+
+<div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}">previous</a>
@@ -27,8 +37,7 @@
         {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}">next</a>
         {% endif %}
-        </span>
-    </div>
-{% endfor %}
+    </span>
+</div>
 </body>
 </html>
