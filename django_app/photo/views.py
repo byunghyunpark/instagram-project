@@ -35,7 +35,7 @@ class PhotoCommentForm(forms.Form):
     """
     content = forms.CharField(widget=forms.Textarea)
 
-
+# SingleObjectMixin : 하나의 객체를 검색하는 용도로 사용
 class PhotoCommentFormView(SingleObjectMixin, FormView):
     template_name = 'photo/photo_detail.html'
     form_class = PhotoCommentForm
