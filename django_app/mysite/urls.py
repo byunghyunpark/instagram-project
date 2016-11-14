@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(apis_patterns)),
     url(r'', include('photo.urls.urls', namespace='photo')),
+    url(r'member/', include('member.urls', namespace='member')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
