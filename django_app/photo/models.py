@@ -20,7 +20,8 @@ class Photo(models.Model):
         through='PhotoLike',
         related_name='photo_set_like_users'
     )
-
+    # class Meta:
+    #     ordering = ['-pk']
     # def __str__(self):
     #     return '%s (author: %s)' % (
     #         self.content,
@@ -45,6 +46,7 @@ class PhotoLike(models.Model):
     photo = models.ForeignKey(Photo)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     created_date = models.DateTimeField(auto_now_add=True)
+
 
 # m2m 모델 아님 단순한 forignkey 참조모델
 class PhotoComment(models.Model):

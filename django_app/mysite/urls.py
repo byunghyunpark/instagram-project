@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(apis_patterns)),
     url(r'', include('photo.urls.urls', namespace='photo')),
+    url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
