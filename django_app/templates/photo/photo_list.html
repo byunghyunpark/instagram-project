@@ -18,7 +18,7 @@
 
 <p><a href="{% url 'photo:photo_add' %}">사진추가</a></p>
 {% for photo in photos %}
-    <img src="{{ photo.image.url }}" alt="" style="width: 400px">
+    <a href="{% url 'photo:photo_detail' pk=photo.pk %}"><img src="{{ photo.image.url }}" alt="" style="width: 400px"></a>
     <p>author: {{ photo.author }}</p>
     <p>content: {{ photo.content }}</p>
     <p>created_date: {{ photo.created_date }}</p>
