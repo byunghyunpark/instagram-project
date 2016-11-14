@@ -13,9 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+# api url을 구분해준다
+apis_patterns = [
+    url(r'^photo/', include('photo.urls.apis')),
+]
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^api/', include(apis_patterns)),
+    url(r'', include('photo.urls.urls', namespace='photo')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
