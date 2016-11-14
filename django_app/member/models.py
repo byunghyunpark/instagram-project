@@ -43,6 +43,3 @@ class Relationship(models.Model):
     follower = models.ForeignKey(MyUser, related_name='relation_set_follower')
     followee = models.ForeignKey(MyUser, related_name='realtion_set_followee')
     created_date = models.TimeField(auto_now_add=True)
-
-    # class Meta:
-    #     unique_together = ('follower', 'followee')

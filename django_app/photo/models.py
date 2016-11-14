@@ -16,6 +16,7 @@ class Photo(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     content = models.TextField(blank=True)
     tags = models.ManyToManyField('PhotoTag', blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through='PhotoLike',

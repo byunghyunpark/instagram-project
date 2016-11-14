@@ -10,8 +10,8 @@
 <body>
 {% for photo in photos %}
     <img src="{{ photo.image.url }}" alt="">
-    <p>{{ photo.author }}</p>
-    <p>{{ photo.content }}</p>
+    <p>author: {{ photo.author }}</p>
+    <p>content: {{ photo.content }}</p>
 {% endfor %}
 </body>
 </html>
