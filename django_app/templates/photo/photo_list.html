@@ -10,9 +10,10 @@
 <body>
 <p><a href="{% url 'photo:photo_add' %}">사진추가</a></p>
 {% for photo in photos %}
-    <img src="{{ photo.image.url }}" alt="">
+    <img src="{{ photo.image.url }}" alt="" style="width: 400px">
     <p>author: {{ photo.author }}</p>
     <p>content: {{ photo.content }}</p>
+    <p>created_date: {{ photo.created_date }}</p>
 {% endfor %}
 </body>
 </html>

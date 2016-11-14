@@ -9,6 +9,7 @@ from photo.models import Photo
 class PhotoList(ListView):
     model = Photo
     context_object_name = 'photos'
+    queryset = Photo.objects.order_by('-created_date')
 
 
 @method_decorator(login_required, name='dispatch')
