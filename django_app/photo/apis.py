@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from photo.models import Photo, PhotoComment
-from photo.serializer import PhotoSerializer, CommentSerializer
+from photo.serializer import PhotoSerializer, CommentSerializer, PhotoCommentSerializer
 
 User = get_user_model()
 
@@ -55,14 +55,15 @@ class PhotoViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
+# 코멘트
 class CommentView(APIView):
     def get(self, request):
         comments = PhotoComment.objects.all()
-        serializer = CommentSerializer(comments, many=True)
+        serializer = PhotoCommentSerializer(comments, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = CommentSerializer(data=request.data)
+        serializer = PhotoCommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

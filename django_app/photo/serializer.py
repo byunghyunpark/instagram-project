@@ -1,22 +1,48 @@
 from rest_framework import serializers
 
+from member.serializer import UserSerializer
 from photo.models import Photo, PhotoComment
 
 
-class PhotoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Photo
-        fields = '__all__'
+class PhotoCommentSerializer(serializers.ModelSerializer):
+    """
+    UserSerializer를 구현하고, author field를 Nested relation으로 나타냄
+    author필드에서 UserSerializer를 사용하도록 설정
+    """
+    author = UserSerializer(read_only=True)
 
-    def to_representation(self, instance):
-        ret = super().to_representation(instance)
-        ret['comment_list'] = CommentSerializer(
-            instance.photocomment_set.all(),
-            many=True).data
-        return ret
+    class Meta:
+        model = PhotoComment
+        fields = (
+            'id',
+            'photo',
+            'author',
+            'content',
+        )
 
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = PhotoComment
         fields = '__all__'
+
+
+class PhotoSerializer(serializers.ModelSerializer):
+    comment_list = CommentSerializer(many=True, read_only=True, source='photocomment_set')
+
+    class Meta:
+        model = Photo
+        fields = (
+            'id',
+            'author',
+            'content',
+            'image',
+            'comment_list',
+        )
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        # ret['comment_list'] = CommentSerializer(
+        #     instance.photocomment_set.all(),
+        #     many=True).data
+        return ret
