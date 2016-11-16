@@ -9,12 +9,7 @@
 </head>
 <body>
 
-
-{% if user.is_authenticated %}
-    <p><a href="{% url 'auth:logout' %}">로그아웃</a></p>
-{% else %}
-    <p><a href="{% url 'auth:login' %}">로그인</a></p>
-{% endif %}
+<p><a href="{% url 'member:login' %}">로그인</a></p>
 
 <p><a href="{% url 'photo:photo_add' %}">사진추가</a></p>
 {% for photo in photos %}
