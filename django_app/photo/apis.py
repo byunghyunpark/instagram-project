@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
@@ -13,11 +14,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from photo.models import Photo, PhotoComment
-from photo.serializer import PhotoSerializer
+from photo.serializer import PhotoSerializer, CommentSerializer
 
 User = get_user_model()
 
 
+# 보통
 class PhotoList(APIView):
     def get(self, request):
         photos = Photo.objects.all()
@@ -32,6 +34,7 @@ class PhotoList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# 쉬움
 class PhotoListMixinView(mixins.ListModelMixin,
                          mixins.CreateModelMixin,
                          generics.GenericAPIView):
@@ -45,9 +48,30 @@ class PhotoListMixinView(mixins.ListModelMixin,
         return self.create(request, *args, **kwargs)
 
 
+# 짱쉬움
 class PhotoViewSet(viewsets.ModelViewSet):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+class CommentView(APIView):
+    def get(self, request):
+        comments = PhotoComment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = PhotoComment.objects.all()
+    serializer_class = CommentSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
