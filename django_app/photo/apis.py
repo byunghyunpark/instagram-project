@@ -55,7 +55,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-# 코멘트
+# 코멘트 (수업시간에 한거)
 class CommentView(APIView):
     def get(self, request):
         comments = PhotoComment.objects.all()
@@ -69,7 +69,7 @@ class CommentView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+# 내가한거
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = PhotoComment.objects.all()
     serializer_class = CommentSerializer
