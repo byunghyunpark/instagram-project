@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from .. import views
+from member.views import LoginFormView, LogoutView
 
 urlpatterns = [
-    url(r'^login/$', views.login_fbv, name='login'),
+    url(r'^login/$', LoginFormView.as_view(), name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
 ]
