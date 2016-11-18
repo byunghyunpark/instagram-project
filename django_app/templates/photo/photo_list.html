@@ -1,3 +1,13 @@
+{% load compress %}
+{% load staticfiles %}
+{% compress css %}
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.css' %}">
+
+<!-- Custom CSS -->
+
+{% endcompress %}
 <!doctype html>
 <html lang="en">
 <head>

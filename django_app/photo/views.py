@@ -18,11 +18,12 @@ from photo.models import Photo, PhotoComment
 from photo.serializer import PhotoSerializer
 
 
-class PhotoList(APIView):
-    def get(self, request):
-        photos = Photo.objects.all()
-        serializer = PhotoSerializer(photos, many=True)
-        return Response(serializer.data)
+# class PhotoList(APIView):
+#     def get(self, request):
+#         photos = Photo.objects.all()
+#         serializer = PhotoSerializer(photos, many=True)
+#         return Response(serializer.data)
+from photo.task import photo_add_after
 
 
 class PhotoList(ListView):
@@ -36,11 +37,13 @@ class PhotoList(ListView):
 class PhotoAdd(CreateView):
     model = Photo
     fields = ['image', 'content']
-    success_url = reverse_lazy('photo:photo_list')
+    success_url = reverse_lazy('photo:photo_list' )
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super(PhotoAdd, self).form_valid(form)
+        ret = super().form_valid(form)
+        photo_add_after.delay(self.object)
+        return ret
 
 
 class PhotoDisplayView(DetailView):
@@ -87,3 +90,4 @@ class PhotoDetail(View):
     def post(self, request, *args, **kwargs):
         view = PhotoCommentFormView.as_view()
         return view(request, *args, **kwargs)
+

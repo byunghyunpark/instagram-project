@@ -27,8 +27,8 @@ apis_patterns = [
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(apis_patterns)),
-    url(r'member/', include('member.urls.urls', namespace='member')),
-    url(r'', include('photo.urls.urls', namespace='photo')),
+    url(r'^member/', include('member.urls.urls', namespace='member')),
+    url(r'^site/', include('photo.urls.urls', namespace='photo')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     # url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

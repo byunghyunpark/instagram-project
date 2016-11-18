@@ -28,10 +28,6 @@ comment_detail = PhotoViewSet.as_view({
 
 
 urlpatterns = [
-    url(r'^photo/$', photo_list, name='photo_list'),
-    url(r'^photo/(?P<pk>[0-9]+)/$', photo_detail, name='photo_detail'),
-    url(r'^photo/add/$', photo_list, name='photo_add'),
-
     # APIView 사용
     url(r'^photo/comment/$', apis.CommentView.as_view(), name='photo_comment_list_default'),
 
